@@ -27,68 +27,50 @@ function getArrowPath(num) {
     return "";
 }
 
-function checkInput(inputName, answer, numberText) {
-        //number input
-        //$(inputName).toggleClass("hidden");
+function resetPage() {
+    setTimeout(function() {
+        location.reload();
+    }, 3000);
+}
+
+function checkInput(inputName, answer, hintText, successFunc) {
+        //show if not shown
+        $(inputName).removeClass("hidden");
+        $(inputName).removeClass("nonExists");
+
+        //number is changed
         $(inputName).keyup(function() {
-            //number is changed
             var entered = $(inputName).val();
             var maxlen = $(inputName).attr("maxlength")
             if(entered.length == maxlen)
             {
                 //success
                 if(entered == answer) {
-                    if(numberText !== undefined) $(numberText).removeClass("wrongNum");
+                    if(hintText !== undefined) $(hintText).removeClass("wrongNum");
                     $(inputName).removeClass("wrongInput");
                     $(inputName).attr("readonly", 1);
+                    if(successFunc !== undefined) successFunc();
                     $(inputName).off("keyup");
                 }
                 //try again
                 else {
-                    if(numberText !== undefined) $(numberText).addClass("wrongNum");
+                    if(hintText !== undefined) $(hintText).addClass("wrongNum");
                     $(inputName).addClass("wrongInput");
                 }
             }
-        })
+        });
+        $(inputName).focus();
 }
 
-function showPart(arrowImg, numberText, input, taskNum, successFunc) {
+function showPart(arrowImg, hintText, inputBox, answer, successFunc) {
     $(arrowImg).toggleClass("hidden");
-    $(arrowImg).attr('src', getArrowPath(taskNum));
+    $(arrowImg).attr('src', getArrowPath(answer));
     $(arrowImg).width(0);
 
-    var animLength = 0; //2000 for production
-    $(arrowImg).animate({width: arrowsWidth[taskNum]}, animLength, "swing", function() {
-        //number input
-        $(input).toggleClass("hidden");
-        $(input).keyup(function() {
-            //number is changed
-            var entered = $(input).val();
-            var maxlen = $(input).attr("maxlength")
-            if(entered.length == maxlen)
-            {
-                //success
-                if(entered == taskNum) {
-                    $(numberText).removeClass("wrongNum");
-                    $(input).removeClass("wrongInput");
-                    $(input).attr("readonly", 1);
-                    successFunc();
-                    $(input).off("change");
-                }
-                //try again
-                else {
-                    $(numberText).addClass("wrongNum");
-                    $(input).addClass("wrongInput");
-                }
-            }
-        })
+    var animLength = 1000; //2000 for production
+    $(arrowImg).animate({width: arrowsWidth[answer]}, animLength, "swing", function() {
+        checkInput(inputBox, answer, hintText, successFunc);
     });
-}
-
-function showAnswerInput() {
-    $(sumNum).toggleClass("nonExists");
-    $(sumNumInput).toggleClass("nonExists");
-    checkInput(sumNumInput, task.sum);
 }
 
 var task;
@@ -106,7 +88,8 @@ $(document).ready(function() {
     //actual task work
     showPart(arrowImg1, aNum, aInput, task.a, function() {
         showPart(arrowImg2, bNum, bInput, task.b, function() {
-            showAnswerInput();
+            $(sumNum).toggleClass("nonExists");
+            checkInput(sumNumInput, task.sum, undefined, resetPage);
         })
     });
 });
