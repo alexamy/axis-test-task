@@ -8,6 +8,7 @@ var arrowsWidth = [0,0, 86, 126, 162, 200, 240, 279, 316, 356];
 
 var aInput = "#aNumInput";
 var bInput = "#bNumInput";
+var sumInput = "#sumNumInput";
 
 function generateTask()
 {
@@ -26,10 +27,68 @@ function getArrowPath(num) {
     return "";
 }
 
-function showArrow(id, num) {
-    $(id).toggleClass("hidden");
-    $(id).attr('src', getArrowPath(num));
-    $(id).width(0);
+function checkInput(inputName, answer, numberText) {
+        //number input
+        //$(inputName).toggleClass("hidden");
+        $(inputName).keyup(function() {
+            //number is changed
+            var entered = $(inputName).val();
+            var maxlen = $(inputName).attr("maxlength")
+            if(entered.length == maxlen)
+            {
+                //success
+                if(entered == answer) {
+                    if(numberText !== undefined) $(numberText).removeClass("wrongNum");
+                    $(inputName).removeClass("wrongInput");
+                    $(inputName).attr("readonly", 1);
+                    $(inputName).off("keyup");
+                }
+                //try again
+                else {
+                    if(numberText !== undefined) $(numberText).addClass("wrongNum");
+                    $(inputName).addClass("wrongInput");
+                }
+            }
+        })
+}
+
+function showPart(arrowImg, numberText, input, taskNum, successFunc) {
+    $(arrowImg).toggleClass("hidden");
+    $(arrowImg).attr('src', getArrowPath(taskNum));
+    $(arrowImg).width(0);
+
+    var animLength = 0; //2000 for production
+    $(arrowImg).animate({width: arrowsWidth[taskNum]}, animLength, "swing", function() {
+        //number input
+        $(input).toggleClass("hidden");
+        $(input).keyup(function() {
+            //number is changed
+            var entered = $(input).val();
+            var maxlen = $(input).attr("maxlength")
+            if(entered.length == maxlen)
+            {
+                //success
+                if(entered == taskNum) {
+                    $(numberText).removeClass("wrongNum");
+                    $(input).removeClass("wrongInput");
+                    $(input).attr("readonly", 1);
+                    successFunc();
+                    $(input).off("change");
+                }
+                //try again
+                else {
+                    $(numberText).addClass("wrongNum");
+                    $(input).addClass("wrongInput");
+                }
+            }
+        })
+    });
+}
+
+function showAnswerInput() {
+    $(sumNum).toggleClass("nonExists");
+    $(sumNumInput).toggleClass("nonExists");
+    checkInput(sumNumInput, task.sum);
 }
 
 var task;
@@ -40,35 +99,14 @@ $(document).ready(function() {
     $(bNum).text(task.b);
     $(sumNum).text("?");
 
-    showArrow(arrowImg1, task.a);
+    //set css (offsets, etc) based on task
+    $(aInput).css("marginLeft", arrowsWidth[task.a]/2 - 10);
+    $(bInput).css("marginLeft", arrowsWidth[task.a]/2 + arrowsWidth[task.b]/2 - 35);
 
-    var animLength = 0 //2000 for production
-    $(arrowImg1).animate({width: arrowsWidth[task.a]}, animLength, "swing", function() {
-        //a number input
-        $(aInput).toggleClass("hidden");
-        $(aInput).css("marginLeft", arrowsWidth[task.a]/2 - 10);
-        $(aInput).keyup(function() {
-            //a number is changed
-            var entered = $(aInput).val();
-            if(entered.length == 1)
-            {
-                if(entered == task.a) {
-                    $(aNum).removeClass("wrongNum");
-                    $(aInput).removeClass("wrongInput");
-                    $(aInput).attr("readonly", 1);
-                    secondPart();
-                    $(aInput).off("change");
-                }
-                else {
-                    $(aNum).addClass("wrongNum");
-                    $(aInput).addClass("wrongInput");
-                }
-            }
+    //actual task work
+    showPart(arrowImg1, aNum, aInput, task.a, function() {
+        showPart(arrowImg2, bNum, bInput, task.b, function() {
+            showAnswerInput();
         })
     });
 });
-
-function secondPart()
-{
-    showArrow(arrowImg2, task.b);
-}

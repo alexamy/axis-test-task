@@ -22,6 +22,11 @@
     width: 20px;
 }
 
+#sumNumInput {
+    font-size: 36pt;
+    width: 58px;
+}
+
 .numInput {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -33,4 +38,8 @@
 
 .hidden {
     visibility: hidden; 
+}
+
+.nonExists {
+    display: none;
 }
