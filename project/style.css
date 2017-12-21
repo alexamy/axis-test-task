@@ -19,19 +19,19 @@
     margin-left: -9px;
 }
 
-/* proper sizers */
-#aNumInput, #bNumInput {
+/* proper size */
+.inputBoxes {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#aInputBox, #bInputBox {
     width: 20px;
 }
 
-#sumNumInput {
+#sumInputBox {
     font-size: 36pt;
     width: 58px;
-}
-
-.numInput {
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 /* wrong answers highlighting */
@@ -46,8 +46,4 @@
 /* hide elements */
 .hidden {
     visibility: hidden; 
-}
-
-.nonExists {
-    display: none;
 }

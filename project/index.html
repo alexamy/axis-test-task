@@ -8,19 +8,19 @@
 		<script src="axis.js"></script>
 	</head>
 	<body>
-		<div id="task">
-			<div class="numbers">
-				<span id="aNum"></span> + <span id="bNum"></span> = <span id="sumInputText"><input id="sumNumInput" type="text" class="nonExists" maxlength="2"></span><span id="sumNum"></span>
+		<div class="numbers">
+			<span id="aNumText"></span> + <span id="bNumText"></span> = 
+			<span id="sumNumText"></span>
+			<input id="sumInputBox" type="text" class="hidden" maxlength="2">
+		</div>
+		<div class="arrows">
+			<div class="inputBoxes">
+				<input id="aInputBox" class="hidden" type="text" maxlength="1">
+				<input id="bInputBox" class="hidden" type="text" maxlength="1">
 			</div>
-			<div class="arrows">
-				<div class="numInput">
-					<input id="aNumInput" type="text" class="hidden" maxlength="1">
-					<input id="bNumInput" type="text" class="hidden" maxlength="1">
-				</div>
-				<img id="arrowsImg1" class="hidden" src="images/arrow_2.png">
-				<img id="arrowsImg2" class="hidden" src="images/arrow_2.png">
-			</div>
-            <div><img src="images/number_axis.png" alt="Числовая ось"></div>
-        </div>
+			<img id="arrowsImg1" class="hidden" src="images/arrow_2.png">
+			<img id="arrowsImg2" class="hidden" src="images/arrow_2.png">
+		</div>
+		<img src="images/number_axis.png" alt="Числовая ось">
 	</body>
 </html>
