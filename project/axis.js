@@ -23,7 +23,7 @@ function getArrowPath(num) {
 //reset page after 3 seconds
 function resetPage() {
     setTimeout(function() {
-        location.reload();
+        location.reload(true);
     }, 3000);
 }
 
