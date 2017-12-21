@@ -1,3 +1,36 @@
+.wrongNum {
+    background-color: #ffff00;
+}
+
 .numbers {
     font-size: 42pt;
+    width: 875px;
+    text-align: center;
+}
+
+.arrows {
+    position: relative;
+    margin-left: 33px;
+    margin-bottom: -25px;
+}
+
+#arrowsImg2 {
+    margin-left: -9px;
+}
+
+#aNumInput, #bNumInput {
+    width: 20px;
+}
+
+.numInput {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.wrongInput {
+    color: red;
+}
+
+.hidden {
+    visibility: hidden; 
 }

@@ -3,11 +3,8 @@
 	<head>
 		<title>Сложение на числовой оси</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<link rel="icon" type="image/png" sizes="96x96" href="https://assets.uchi.ru/favicons/favicon-96x96.png">
-		<script
-		src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g="
-		crossorigin="anonymous"></script>
+		<link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
+		<script src="jquery-3.2.1.min.js"></script>
 		<script src="axis.js"></script>
 	</head>
 	<body>
@@ -15,7 +12,15 @@
 			<div class="numbers">
 				<span id="aNum"></span> + <span id="bNum"></span> = <span id="sumNum"></span>
 			</div>
-            <img src="number_axis.png" alt="Числовая ось">
+			<div class="arrows">
+				<div class="numInput">
+					<input id="aNumInput" type="text" class="hidden" maxlength="1">
+					<input id="bNumInput" type="text" class="hidden" maxlength="2">
+				</div>
+				<img id="arrowsImg1" class="hidden" src="images/arrow_2.png">
+				<img id="arrowsImg2" class="hidden" src="images/arrow_2.png">
+			</div>
+            <div><img src="images/number_axis.png" alt="Числовая ось"></div>
         </div>
 	</body>
 </html>
